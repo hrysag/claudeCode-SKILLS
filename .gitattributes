@@ -1,0 +1,3 @@
+# Keep LF everywhere so the working copy matches the installed skills byte for byte
+# (tools/install.mjs compares files exactly).
+* text=auto eol=lf
