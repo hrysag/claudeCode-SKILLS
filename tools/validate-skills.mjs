@@ -17,11 +17,12 @@ const ENGINE_FILES = ['engine.md', 'boundary.md', 'typescript.md', 'project-rule
 // Headings other skills reference by name (game-workflow, game-implementation-boundary SKILL.md).
 const REQUIRED_HEADINGS = {
     'boundary.md': '## High-Risk Topics (recommend COMPLEX)',
-    'project-rules.md': '# 驗證清單',
+    'project-rules.md': '# Verification Checklist',
 };
 const LEGACY_NAME = /\bcocos-(workflow-html-review|workflow|concept-example|prototype-example|skeleton-first|implementation-boundary)\b/;
 const CODEX_RESIDUE = /\.codex|python\s/i;
 const DRAFT_MARKER = /\bDRAFT\b|\[CONFIRM\]|【需確認】/;
+const HAN_TEXT = /\p{Script=Han}/u;
 
 function listFiles(dir) {
     const out = [];
@@ -102,6 +103,11 @@ export function validate(skillsRoot) {
             }
             if (DRAFT_MARKER.test(text)) {
                 failures.push(`${file}: draft marker`);
+            }
+            // Rules and skills are written in English; only game-workflow/SKILL.md carries Chinese trigger keywords.
+            const isTriggerFile = name === 'game-workflow' && base === 'SKILL.md';
+            if (base.endsWith('.md') && !isTriggerFile && HAN_TEXT.test(text)) {
+                failures.push(`${file}: chinese text`);
             }
         }
     }

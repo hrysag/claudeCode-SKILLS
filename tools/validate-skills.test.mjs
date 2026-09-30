@@ -30,7 +30,7 @@ function makeValidFixture() {
         write(root, `game-implementation-boundary/engines/cocos/${file}`, '# ok\n');
     }
     write(root, 'game-implementation-boundary/engines/cocos/boundary.md', '# ok\n\n## High-Risk Topics (recommend COMPLEX)\n\n- x\n');
-    write(root, 'game-implementation-boundary/engines/cocos/project-rules.md', '# ok\n\n# 驗證清單\n\n* x\n');
+    write(root, 'game-implementation-boundary/engines/cocos/project-rules.md', '# ok\n\n# Verification Checklist\n\n* x\n');
     return root;
 }
 
@@ -120,12 +120,27 @@ test('boundary.md must keep the High-Risk Topics heading', () => {
     assert.ok(hasFailure(failures, 'High-Risk Topics (recommend COMPLEX)'));
 });
 
-test('project-rules.md must keep the 驗證清單 heading', () => {
+test('project-rules.md must keep the Verification Checklist heading', () => {
     const root = makeValidFixture();
     write(root, 'game-implementation-boundary/engines/cocos/project-rules.md', '# ok\n');
     const failures = validate(root);
     assert.ok(hasFailure(failures, 'heading missing'));
-    assert.ok(hasFailure(failures, '驗證清單'));
+    assert.ok(hasFailure(failures, '# Verification Checklist'));
+});
+
+test('Chinese text in skill markdown is reported', () => {
+    const root = makeValidFixture();
+    write(root, 'game-implementation-boundary/engines/cocos/project-rules.md', '# ok\n\n# Verification Checklist\n\n* 不可猜測\n');
+    const failures = validate(root);
+    assert.ok(hasFailure(failures, 'chinese text'));
+    assert.ok(hasFailure(failures, 'project-rules.md'));
+});
+
+test('Chinese trigger keywords are allowed only in game-workflow/SKILL.md', () => {
+    const root = makeValidFixture();
+    write(root, 'game-workflow/SKILL.md', '---\nname: game-workflow\ndescription: keywords 腦爆, 設計\n---\n');
+    write(root, 'game-workflow-html-review/scripts/sample.test.mjs', "const s = '設計 決策';");
+    assert.deepEqual(validate(root), []);
 });
 
 test('global CLAUDE.md skill paths must exist', () => {

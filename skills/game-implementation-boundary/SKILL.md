@@ -180,7 +180,7 @@ Use `superpowers:verification-before-completion` for the verification discipline
 - No skeletal animation callback leak
 - No schedule / timer callback leak
 - No pool reference leak
-- No engine-specific leak listed in the 驗證清單 of `engines/<engine>/project-rules.md`
+- No engine-specific leak listed in the Verification Checklist of `engines/<engine>/project-rules.md`
 - No event listener leak
 - No obvious lifecycle issue
 - No public API regression

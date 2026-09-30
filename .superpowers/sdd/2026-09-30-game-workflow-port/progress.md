@@ -58,3 +58,4 @@ Change: 重新安裝 game-implementation-boundary（--force）；~/.claude/CLAUD
 Change: 非引擎 TS 專案改為只套 cocos typescript.md 的 ## TypeScript Boundary 3 條（使用者指示）；suite 36/36；重新安裝 boundary + CLAUDE.md（覆蓋前確認與上一版逐字相同）
 Change: Egret TS 規範補充（namespace only 不用 import；tsconfig strict + es2015.core + es2015.collection）— TS 2.4.2 實測 21 項；更新 egret typescript.md / project-rules.md、cocos Porting Notes、ts-version-comparison §3.5；suite 36/36；重新安裝 boundary（差異僅 3 個本次修改檔）
 Change: Egret Map/Set 改為依專案 tsconfig.json 偵測（Collections / Iteration methods / for...of 三層；lib 名稱大小寫不敏感；extends 合併；非法 JSON 視同範本）— TS 2.4.2 實測 13 種 lib 組合；strict 亦改為偵測；suite 36/36；重新安裝 boundary
+Change: 規則/skill 檔全面英文化（僅保留觸發關鍵字中文）：cocos/egret project-rules.md 翻譯、標題 驗證清單 → Verification Checklist；validator 新增 chinese text 檢查（僅 game-workflow/SKILL.md 例外）— tests RED→GREEN, suite 38/38；重新安裝 boundary
